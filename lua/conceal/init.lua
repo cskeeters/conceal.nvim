@@ -102,7 +102,7 @@ M.conceal_github_emojis = function(buffer, line_index)
     local line = vim.api.nvim_buf_get_lines(buffer, line_index, line_index+1, true)[1]
 
     log_trace("Looking for emoji in " .. line)
-    local s,e = string.find(line, ":[^%s]+:")
+    local s,e = string.find(line, ":[^%s:]+:")
 
     while s ~= nil do
 
@@ -127,7 +127,7 @@ M.conceal_github_emojis = function(buffer, line_index)
             )
         end
 
-        s,e = string.find(line, ":[^%s]+:", e+1)
+        s,e = string.find(line, ":[^%s:]+:", e+1)
     end
 end
 
