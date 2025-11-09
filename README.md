@@ -40,6 +40,8 @@ require('conceal').setup({
         ["­"] = '-',  -- Soft Hyphen
         ["⁠"] = '⌿',  -- Word Joiner
         ["​"] = "~",  -- Zero Width Space
+        [" "] = "n",  -- EN Space
+        [" "] = "m",  -- EM Space
     }
 
     filetypes = {
