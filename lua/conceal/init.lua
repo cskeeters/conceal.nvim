@@ -1,5 +1,8 @@
 local utf8 = require 'lua-utf8'
 
+-- This will load if cskeeters/github_emoji.nvim is installed
+EMOJI_PATH = "data/emoji.txt"
+
 function contains(table, value)
   for i = 1,#table do
     if (table[i] == value) then
@@ -44,6 +47,18 @@ local function log_error(msg)
 end
 
 
+function path_exists(rpath)
+    local paths = vim.api.nvim_get_runtime_file(rpath, false)
+    return #paths > 0
+end
+
+function get_path(rpath)
+    local paths = vim.api.nvim_get_runtime_file(rpath, false)
+    if #paths == 0 then
+        error("Error loading: "..rpath)
+    end
+    return paths[1]
+end
 
 
 local ns_id = vim.api.nvim_create_namespace("conceal.nvim")
@@ -190,9 +205,9 @@ end
 
 M.load_github_emoji = function()
 
-    local file = io.open(os.getenv("HOME").."/.local/share/github/emojis.txt","r")
+    local file = io.open(get_path(EMOJI_PATH),"r")
     if file == nil then
-        log_error("could not open emojis.txt")
+        log_error("could not open "..EMOJI_PATH)
         return
     end
 
